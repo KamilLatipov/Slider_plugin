@@ -14,23 +14,25 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Plugin',
+          filename: 'index.html',
+          template: './src/index.html'
       }),
     ],
     module: {
       rules: [
-       {
-        test: /\.css$/,
-        use: [
-         'style-loader',
-         'css-loader',
-        ],
-       },
-          {
-              test: /\.tsx?$/,
-              use: 'ts-loader',
-              exclude: /node_modules/,
-          },
+        {
+         test: /\.s[ac]ss$/,
+         use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+         ],
+        },
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
       ],
     },
     resolve: {

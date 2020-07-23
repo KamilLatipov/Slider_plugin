@@ -28,7 +28,7 @@ export default class View {
   }
 
   private drag = (event: any) => {
-    this.moveAt(event.pageX);
+    this.moveAt(event.clientX);
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.unDrag);
@@ -38,11 +38,22 @@ export default class View {
     document.removeEventListener('mousemove', this.onMouseMove);
   };
 
-  private moveAt = (pageX: any) => {
-    this.pointer.style.left = pageX - this.pointer.offsetWidth / 2 + 'px';
+  private moveAt  = (pageX: any) => {
+    let shiftX = pageX - this.slider.getBoundingClientRect().left;
+    let position = shiftX - this.pointer.offsetWidth / 2;
+
+    if (position + this.pointer.offsetWidth > this.slider.offsetWidth) {
+      this.pointer.style.left = this.slider.offsetWidth - this.pointer.offsetWidth  + 'px';
+    }
+    else if (position  < 0) {
+      this.pointer.style.left = 0 + 'px';
+    }
+    else {
+      this.pointer.style.left = position + 'px';
+    }
   };
 
   private onMouseMove = (event: any) => {
-    this.moveAt(event.pageX);
+    this.moveAt(event.clientX);
   };
 }

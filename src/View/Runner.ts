@@ -1,13 +1,15 @@
 export default class Runner {
-  index: number;
+  min: number;
+  max: number;
   pointer: HTMLElement;
   parentElement: HTMLElement;
   orientation: string;
 
-  constructor(parentElement: HTMLElement, orientation: string, index: number) {
+  constructor(parentElement: HTMLElement, orientation: string, min: number, max: number) {
     this.parentElement = parentElement;
     this.orientation = orientation;
-    this.index = index;
+    this.min = min;
+    this.max = max;
 
     this.create();
   }
@@ -44,8 +46,8 @@ export default class Runner {
     let shiftX = (event.clientX - this.parentElement.getBoundingClientRect().left) - this.pointer.offsetWidth / 2;
     let shiftY = (event.clientY - this.parentElement.getBoundingClientRect().top) - this.pointer.offsetHeight / 2;
 
-    let XCoordinate = this.toLimit(this.parentElement.offsetWidth, 0, shiftX);
-    let YCoordinate = this.toLimit(this.parentElement.offsetHeight, 0, shiftY);
+    let XCoordinate = this.toLimit(this.max, this.min, shiftX);
+    let YCoordinate = this.toLimit(this.max, this.min, shiftY);
 
     this.moveAt(XCoordinate, YCoordinate, this.orientation);
   };

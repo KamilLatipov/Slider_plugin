@@ -20,7 +20,7 @@ export default class View {
     this.scale.classList.add('slider__scale');
     this.slider.appendChild(this.scale);
 
-    const runner = new Runner(this.slider, this.orientation, 2);
+    const runner = new Runner(this.slider, this.orientation, 0 ,100);
   }
 
   public setOrientation(orientation: string) {

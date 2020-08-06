@@ -3,15 +3,20 @@ import './main.scss';
 
 let root = document.getElementById('2d');
 
-console.log(root);
-
 let Slider = new View(root);
 
-let button = document.createElement('button');
+let button = document.createElement('input');
+button.setAttribute("type", "checkbox");
+button.setAttribute("checked", "true");
 button.classList.add('button');
 document.body.append(button);
 
-button.onclick = function()  {
-  Slider.setOrientation('vertical');
+button.onchange = function()  {
+  if (button.checked) {
+    Slider.setOrientation('horizontal');
+  }
+  else {
+    Slider.setOrientation('vertical');
+  }
 };
 

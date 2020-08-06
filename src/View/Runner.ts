@@ -1,26 +1,25 @@
-export default class Runner {
-  min: number;
-  max: number;
-  pointer: HTMLElement;
+import Observer from './../Observer';
+
+export default class Runner{
+  runner: HTMLElement;
   parentElement: HTMLElement;
   orientation: string;
+  position: number;
 
-  constructor(parentElement: HTMLElement, orientation: string, min: number, max: number) {
+  constructor(parentElement: HTMLElement, orientation: string, index: number) {
     this.parentElement = parentElement;
     this.orientation = orientation;
-    this.min = min;
-    this.max = max;
 
     this.create();
   }
 
   private create() {
-    this.pointer = document.createElement('div');
-    this.pointer.classList.add('slider__runner');
-    this.parentElement.appendChild(this.pointer);
+    this.runner = document.createElement('div');
+    this.runner.classList.add('slider__runner');
+    this.parentElement.appendChild(this.runner);
 
-    this.pointer.addEventListener('mousedown', this.drag);
-    this.pointer.ondragstart = function () {
+    this.runner.addEventListener('mousedown', this.drag);
+    this.runner.ondragstart = function () {
       return false;
     };
   }
@@ -34,25 +33,38 @@ export default class Runner {
     document.removeEventListener('mousemove', this.onMouseMove);
   };
 
-  private moveAt = (XCoordinate: any, YCoordinate: any, orientation: any) => {
+  private moveAt = (position: number, orientation: any) => {
     if (orientation == 'horizontal') {
-      this.pointer.style.left = XCoordinate + 'px';
+      this.runner.style.left = position + 'px';
     } else {
-      this.pointer.style.top = YCoordinate + 'px';
+      this.runner.style.top = position + 'px';
     }
   };
 
   private onMouseMove = (event: any) => {
-    let shiftX = (event.clientX - this.parentElement.getBoundingClientRect().left) - this.pointer.offsetWidth / 2;
-    let shiftY = (event.clientY - this.parentElement.getBoundingClientRect().top) - this.pointer.offsetHeight / 2;
+    let shiftX = (event.clientX - this.parentElement.getBoundingClientRect().left) - this.runner.offsetWidth / 2;
+    let shiftY = (event.clientY - this.parentElement.getBoundingClientRect().top) - this.runner.offsetHeight / 2;
 
-    let XCoordinate = this.toLimit(this.max, this.min, shiftX);
-    let YCoordinate = this.toLimit(this.max, this.min, shiftY);
+    let XCoordinate = this.toLimit(this.parentElement.getBoundingClientRect().width, 0, shiftX);
+    let YCoordinate = this.toLimit(this.parentElement.getBoundingClientRect().height, 0, shiftY);
 
-    this.moveAt(XCoordinate, YCoordinate, this.orientation);
+    if (this.orientation == 'horizontal') {
+      this.position = XCoordinate;
+    } else {
+      this.position = YCoordinate;
+    }
+
+    this.moveAt(this.position, this.orientation);
   };
 
   private toLimit(max: number, min: number, value: number) {
     return Math.min(Math.max(min, value), max);
   };
+
+  public setOrientation(orientation: string) {
+    this.orientation = orientation;
+    this.runner.style.left = 0 + 'px';
+    this.runner.style.top = 0 + 'px';
+    this.moveAt(this.position, this.orientation);
+  }
 }

@@ -1,4 +1,4 @@
-export default class ConcreteSubject {
+export default class Subject {
   private observers: Observer[] = [];
 
   public attach(observer: Observer): void {
@@ -9,9 +9,13 @@ export default class ConcreteSubject {
     this.observers.push(observer);
   }
 
-  public notify(): void {
+  public notify(name: string, data: any): void {
     for (const observer of this.observers) {
-      observer.update(this);
+      observer.update(name, data);
     }
   }
+}
+
+interface Observer {
+  update(name: string, data: any): void;
 }

@@ -7,5 +7,5 @@ export default class Model {
     this.secondRunnerPosition = secondRunnerPosition;
   }
 
-  
+
 }

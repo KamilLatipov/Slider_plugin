@@ -1,4 +1,4 @@
-import Observer from './../Observer';
+import Observer from '../Observer/Subject';
 
 export default class Runner{
   runner: HTMLElement;

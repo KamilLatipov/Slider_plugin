@@ -1,6 +1,7 @@
 import Runner from './Runner';
+import Subject from './../Observer/Subject';
 
-export default class View {
+export default class View extends Subject {
   rootElement: HTMLElement;
   slider: HTMLElement;
   scale: HTMLElement;
@@ -8,6 +9,8 @@ export default class View {
   runners: Map<number, Runner> = new Map<number, Runner>();
 
   constructor(root: HTMLElement) {
+    super();
+
     this.rootElement = root;
 
     this.create();

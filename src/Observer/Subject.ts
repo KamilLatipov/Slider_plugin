@@ -9,4 +9,4 @@ export default class Subject {
     const method = this.observers.get(name);
     method(data);
   }
-}
+} 

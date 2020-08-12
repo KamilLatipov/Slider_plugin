@@ -7,11 +7,8 @@ export default class Model extends Subject {
   view: View;
   root: HTMLElement;
 
-  constructor(firstRunnerPosition: number, secondRunnerPosition: number, root: HTMLElement) {
+  constructor() {
     super();
-
-    this.firstRunnerPosition = firstRunnerPosition;
-    this.secondRunnerPosition = secondRunnerPosition;
 
   }
 }

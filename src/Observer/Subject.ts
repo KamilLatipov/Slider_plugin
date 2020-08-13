@@ -5,7 +5,7 @@ export default class Subject {
     this.observers.set(name, method);
   }
 
-  public notify(name: string, data: any) {
+  public notify(name: string, data?: any) {
     const method = this.observers.get(name);
     method(data);
   }

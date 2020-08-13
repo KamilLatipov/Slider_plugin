@@ -25,6 +25,7 @@ export default class View extends Subject {
     this.slider.appendChild(this.scale);
 
     let runner = new Runner(this.slider, this.orientation, 0);
+    runner.attach('runnerDragged', this.onRunnerDragged);
     this.runners.set(0, runner);
   }
 
@@ -37,14 +38,18 @@ export default class View extends Subject {
       this.runners.forEach(function(Runner) {
         Runner.setOrientation(that.orientation);
       })
-
-    } else {
+    }
+    else {
       this.orientation = 'vertical';
-      this.slider.classList.add('slider__remove');
+      this.slider.classList.remove('slider__horizontal');
       this.slider.classList.add('slider__vertical');
       this.runners.forEach(function(Runner) {
         Runner.setOrientation(that.orientation);
       })
     }
   };
+
+  public onRunnerDragged(parameters: {index: number, coordinate: number}) {
+    this.notify('runnerDragged', parameters);
+  }
 }

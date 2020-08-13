@@ -1,14 +1,18 @@
-import Observer from '../Observer/Subject';
+import Subject from '../Observer/Subject';
 
-export default class Runner{
+export default class Runner extends Subject {
   runner: HTMLElement;
   parentElement: HTMLElement;
   orientation: string;
   position: number;
+  parameters: {index: number, coordinate: number} = {index: 0, coordinate: 0};
 
   constructor(parentElement: HTMLElement, orientation: string, index: number) {
+    super();
+
     this.parentElement = parentElement;
     this.orientation = orientation;
+    this.parameters.index = index;
 
     this.create();
   }
@@ -45,20 +49,14 @@ export default class Runner{
     let shiftX = (event.clientX - this.parentElement.getBoundingClientRect().left) - this.runner.offsetWidth / 2;
     let shiftY = (event.clientY - this.parentElement.getBoundingClientRect().top) - this.runner.offsetHeight / 2;
 
-    let XCoordinate = this.toLimit(this.parentElement.getBoundingClientRect().width, 0, shiftX);
-    let YCoordinate = this.toLimit(this.parentElement.getBoundingClientRect().height, 0, shiftY);
-
     if (this.orientation == 'horizontal') {
-      this.position = XCoordinate;
-    } else {
-      this.position = YCoordinate;
+      this.parameters.coordinate = shiftX;
+    }
+    else {
+      this.parameters.coordinate = shiftY;
     }
 
-    this.moveAt(this.position, this.orientation);
-  };
-
-  private toLimit(max: number, min: number, value: number) {
-    return Math.min(Math.max(min, value), max);
+    this.notify('runnerDragged', this.parameters);
   };
 
   public setOrientation(orientation: string) {

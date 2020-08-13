@@ -1,4 +1,4 @@
-import View from './view/View';
+import View from './View/View';
 import './main.scss';
 
 let root = document.getElementById('2d');

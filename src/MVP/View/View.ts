@@ -15,16 +15,12 @@ class View {
     initializeView() {
         this.sliderElement = document.createElement('div');
         this.sliderElement.classList.add('slider');
-        this.attachChildElemToParent(this.sliderElement, this.parentElement);
+        this.parentElement.append(this.sliderElement);
         this.track = new Track();
-        this.attachChildElemToParent(this.track.getElement(), this.sliderElement);
+        this.sliderElement.append(this.track.getElement());
         this.thumb = new Thumb();
-        this.attachChildElemToParent(this.thumb.getElement(), this.track.getElement());
+        this.track.getElement().append(this.thumb.getElement());
         this.progressBar = new ProgressBar();
-        this.attachChildElemToParent(this.progressBar.getElement(), this.track.getElement());
-
-    }
-    attachChildElemToParent(childElement: HTMLElement, parentElement: HTMLElement) {
-        parentElement.append(childElement);
+        this.track.getElement().append(this.progressBar.getElement());
     }
 }

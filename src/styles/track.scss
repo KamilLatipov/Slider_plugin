@@ -1,0 +1,23 @@
+.slider__track {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 10px;
+}
+
+.slider__track-tip {
+  position: absolute;
+  top: 10px;
+  height: 15px;
+  width: 15px;
+  border-radius: 10px;
+  background-color: rgba(15, 120, 0, 0.2);
+}
+
+.slider__track-max {
+  right: 0;
+}
+
+.slider__track-min {
+  left: 0;
+}

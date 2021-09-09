@@ -1,4 +1,5 @@
 .slider__track {
+  width: 100%;
   position: relative;
   border: 1px solid black;
   border-radius: 5px;
@@ -7,17 +8,17 @@
 
 .slider__track-tip {
   position: absolute;
-  top: 10px;
+  top: 18px;
   height: 15px;
   width: 15px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgba(15, 120, 0, 0.2);
 }
 
 .slider__track-max {
-  right: 0;
+  right: -2px;
 }
 
 .slider__track-min {
-  left: 0;
+  left: -2px;
 }

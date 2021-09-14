@@ -8,6 +8,7 @@ class View {
     track: Track;
     thumb: Thumb;
     progressBar: ProgressBar;
+
     constructor(parentElement: HTMLElement) {
         this.parentElement = parentElement;
         this.initializeView();
@@ -24,3 +25,5 @@ class View {
         this.track.getElement().append(this.progressBar.getElement());
     }
 }
+
+export default View;

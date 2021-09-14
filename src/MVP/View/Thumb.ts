@@ -1,6 +1,8 @@
 export class Thumb {
     thumbElem: HTMLElement;
-    constructor() {
+    trackElem: HTMLElement;
+    constructor(trackElem: HTMLElement) {
+        this.trackElem = trackElem;
         this.initializeThumb();
     }
     initializeThumb() {
@@ -12,20 +14,24 @@ export class Thumb {
         return (this.thumbElem);
     }
     handleThumbClicked = (event: MouseEvent) => {
-        let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left + 9;
-        let moveThumbAt = (pageX: number) => {
-            this.thumbElem.style.left = pageX - shiftX + 'px';
-        }
-        let onMouseMove = (event: MouseEvent) => {
-            moveThumbAt(event.pageX);
+        let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left;
+        let handleMouseMove = (event: MouseEvent) => {
+            let thumbLeft = event.clientX - shiftX - this.trackElem.getBoundingClientRect().left;
+            if (thumbLeft < 0) {
+                thumbLeft = 0;
+            }
+            let rightEdge = this.trackElem.offsetWidth - this.thumbElem.offsetWidth;
+            if (thumbLeft > rightEdge) {
+                thumbLeft = rightEdge;
+            }
+            this.thumbElem.style.left = thumbLeft + 'px';
         }
         this.thumbElem.ondragstart = function() {
             return false;
         };
-        moveThumbAt(event.pageX);
-        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mousemove', handleMouseMove);
         document.onmouseup = () => {
-            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mousemove', handleMouseMove);
         }
     }
 

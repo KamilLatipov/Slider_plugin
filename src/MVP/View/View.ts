@@ -19,7 +19,7 @@ class View {
         this.parentElement.append(this.sliderElement);
         this.track = new Track();
         this.sliderElement.append(this.track.getElement());
-        this.thumb = new Thumb();
+        this.thumb = new Thumb(this.track.getElement());
         this.track.getElement().append(this.thumb.getElement());
         this.progressBar = new ProgressBar();
         this.track.getElement().append(this.progressBar.getElement());

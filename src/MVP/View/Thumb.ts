@@ -1,7 +1,11 @@
-export class Thumb {
+import Publisher from '../Observer/Publisher';
+
+export class Thumb extends Publisher{
     thumbElem: HTMLElement;
     trackElem: HTMLElement;
+    thumbPosition: number;
     constructor(trackElem: HTMLElement) {
+        super();
         this.trackElem = trackElem;
         this.initializeThumb();
     }
@@ -12,6 +16,9 @@ export class Thumb {
     }
     getElement() {
         return (this.thumbElem);
+    }
+    getThumbPosition() {
+        return (this.thumbPosition);
     }
     handleThumbClicked = (event: MouseEvent) => {
         let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left;

@@ -1,8 +1,9 @@
 import { Track } from './Track';
 import { Thumb } from './Thumb';
 import { ProgressBar } from './ProgressBar';
+import Publisher from "../Observer/Publisher";
 
-class View {
+class View extends Publisher {
     parentElement: HTMLElement;
     sliderElement: HTMLElement;
     track: Track;
@@ -10,10 +11,11 @@ class View {
     progressBar: ProgressBar;
 
     constructor(parentElement: HTMLElement) {
+        super();
         this.parentElement = parentElement;
-        this.initializeView();
+        this.initView();
     }
-    initializeView() {
+    initView() {
         this.sliderElement = document.createElement('div');
         this.sliderElement.classList.add('slider');
         this.parentElement.append(this.sliderElement);

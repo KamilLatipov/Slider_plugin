@@ -5,9 +5,6 @@ interface Subject {
 
 class Publisher implements Subject{
     events: {[key: string]: any};
-    constructor() {
-        this.events = {};
-    }
     attach(eventName: string, fn: (args?: any) => void): void {
         this.events[eventName] = fn;
     }

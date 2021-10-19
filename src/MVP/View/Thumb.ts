@@ -17,9 +17,6 @@ export class Thumb extends Publisher{
     getElement() {
         return (this.thumbElem);
     }
-    getThumbPosition() {
-        return (this.thumbPosition);
-    }
     handleThumbClicked = (event: MouseEvent) => {
         let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left;
         let handleMouseMove = (event: MouseEvent) => {

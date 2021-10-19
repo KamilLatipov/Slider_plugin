@@ -1,4 +1,5 @@
 import View from './MVP/View/View';
+import Presenter from './MVP/Presenter/Presenter';
 
 export interface Configs {
     vertical: boolean;
@@ -19,8 +20,8 @@ const parentElem = document.getElementsByClassName('slider-elem');
 const options: Configs = {
     vertical: false,
     minValue: 0,
-    maxValue: 0,
-    step: 1,
+    maxValue: 100,
+    step: 10,
     interval: false,
     prompt: false,
 }

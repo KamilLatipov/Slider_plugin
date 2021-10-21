@@ -1,9 +1,13 @@
 import Publisher from '../Observer/Publisher';
 
+interface thumbMovedData {
+    thumbClickedEvent: MouseEvent;
+    thumbMovedEvent: MouseEvent;
+}
+
 export class Thumb extends Publisher{
     thumbElem: HTMLElement;
     trackElem: HTMLElement;
-    thumbPosition: number;
     constructor(trackElem: HTMLElement) {
         super();
         this.trackElem = trackElem;
@@ -18,17 +22,16 @@ export class Thumb extends Publisher{
         return (this.thumbElem);
     }
     handleThumbClicked = (event: MouseEvent) => {
+        let clickEvent: MouseEvent = event;
         let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left;
         let handleMouseMove = (event: MouseEvent) => {
-            let thumbLeft = event.clientX - shiftX - this.trackElem.getBoundingClientRect().left;
-            if (thumbLeft < 0) {
-                thumbLeft = 0;
-            }
-            let rightEdge = this.trackElem.offsetWidth - this.thumbElem.offsetWidth;
-            if (thumbLeft > rightEdge) {
-                thumbLeft = rightEdge;
-            }
-            this.thumbElem.style.left = thumbLeft + 'px';
+            let thumbMovedData: thumbMovedData = {
+                thumbClickedEvent: clickEvent,
+                thumbMovedEvent: event
+            };
+            this.notify('ThumbPositionChanged', thumbMovedData);
+
+            //this.thumbElem.style.left = thumbLeft + 'px';
         }
         this.thumbElem.ondragstart = function() {
             return false;

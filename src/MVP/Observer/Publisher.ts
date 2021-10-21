@@ -8,7 +8,7 @@ class Publisher implements Subject{
     attach(eventName: string, fn: (args?: any) => void): void {
         this.events[eventName] = fn;
     }
-    notify(eventName: string, args: any): void {
+    notify(eventName: string, args?: any): void {
         let evokeFunc = this.events[eventName];
         evokeFunc(args);
     }

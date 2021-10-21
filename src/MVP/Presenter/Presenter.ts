@@ -10,16 +10,24 @@ class Presenter {
     constructor(configs: Configs, parenElem: HTMLElement) {
         this.configs = configs;
         this.parentElem = parenElem;
-        this.initPresenter();
         this.view = new View(parenElem);
         this.model = new Model(configs);
+        this.initPresenter();
     }
     initPresenter() {
         this.view = new View(this.parentElem);
         this.view.attach('ThumbPositionChanged', this.handleThumbPosChanged);
     }
-    handleThumbPosChanged(data: object) {
-
+    handleThumbPosChanged(data: any) {
+        let shiftX = data.thumbClickedEvent.clientX - this.view.thumb.getElement().getBoundingClientRect().left;
+        let thumbLeft = data.thumbMovedEvent.clientX - shiftX - this.view.track.getElement().getBoundingClientRect().left;
+        if (thumbLeft < 0) {
+            thumbLeft = 0;
+        }
+        let rightEdge = this.view.track.getElement().offsetWidth - this.view.thumb.getElement().offsetWidth;
+        if (thumbLeft > rightEdge) {
+            thumbLeft = rightEdge;
+        }
     }
 }
 

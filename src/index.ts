@@ -26,4 +26,4 @@ const options: Configs = {
     prompt: false,
 }
 
-const slider = new View(parentElem[0] as HTMLElement);
+const slider = new Presenter(options,parentElem[0] as HTMLElement);

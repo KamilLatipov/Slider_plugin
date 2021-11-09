@@ -22,16 +22,16 @@ class View extends Publisher {
         this.track = new Track();
         this.sliderElement.append(this.track.getElement());
         this.thumb = new Thumb(this.track.getElement());
+        this.thumb.attach('ThumbPositionChanged', this.notifyThumbPosChanged)
         this.track.getElement().append(this.thumb.getElement());
         this.progressBar = new ProgressBar();
         this.track.getElement().append(this.progressBar.getElement());
-        this.attachViewToPublishers();
     }
-    attachViewToPublishers() {
-        this.thumb.attach('ThumbPositionChanged', this.notifyThumbPosChanged)
-    }
-    notifyThumbPosChanged(data: any){
+    notifyThumbPosChanged = (data: any) => {
         this.notify('ThumbPositionChanged', data);
+    }
+    setThumbNewPos(thumbLeftPos: number) {
+        this.thumb.setThumbNewPos(thumbLeftPos);
     }
 }
 

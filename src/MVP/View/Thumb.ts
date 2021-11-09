@@ -3,6 +3,10 @@ import Publisher from '../Observer/Publisher';
 interface thumbMovedData {
     thumbClickedEvent: MouseEvent;
     thumbMovedEvent: MouseEvent;
+    thumbLeftPos: number;
+    trackLeftPos: number;
+    thumbOffsetWidth: number;
+    trackOffsetWidth: number;
 }
 
 export class Thumb extends Publisher{
@@ -23,15 +27,20 @@ export class Thumb extends Publisher{
     }
     handleThumbClicked = (event: MouseEvent) => {
         let clickEvent: MouseEvent = event;
-        let shiftX = event.clientX - this.thumbElem.getBoundingClientRect().left;
+        let thumbLeftPos = this.thumbElem.getBoundingClientRect().left;
+        let trackLeftPos = this.trackElem.getBoundingClientRect().left;
+        let thumbOffsetWidth = this.thumbElem.offsetWidth;
+        let trackOffsetWidth = this.trackElem.offsetWidth;
         let handleMouseMove = (event: MouseEvent) => {
             let thumbMovedData: thumbMovedData = {
                 thumbClickedEvent: clickEvent,
-                thumbMovedEvent: event
+                thumbMovedEvent: event,
+                thumbLeftPos: thumbLeftPos,
+                trackLeftPos: trackLeftPos,
+                thumbOffsetWidth: thumbOffsetWidth,
+                trackOffsetWidth: trackOffsetWidth,
             };
             this.notify('ThumbPositionChanged', thumbMovedData);
-
-            //this.thumbElem.style.left = thumbLeft + 'px';
         }
         this.thumbElem.ondragstart = function() {
             return false;
@@ -41,5 +50,8 @@ export class Thumb extends Publisher{
             document.removeEventListener('mousemove', handleMouseMove);
         }
     }
-
+    setThumbNewPos(thumbLeftPos: number) {
+        console.log(thumbLeftPos);
+        this.thumbElem.style.left = thumbLeftPos + 'px';
+    }
 }

@@ -1,10 +1,10 @@
 interface Subject {
-    attach(event: string, fn: (args?: any) => void): void;
-    notify(event: string, args: any): void;
+    attach(eventName: string, fn: (args?: any) => void): void;
+    notify(eventName: string, args: any): void;
 }
 
 class Publisher implements Subject{
-    events: {[key: string]: any};
+    events: {[key: string]: any} = {};
     attach(eventName: string, fn: (args?: any) => void): void {
         this.events[eventName] = fn;
     }

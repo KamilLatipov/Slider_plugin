@@ -51,7 +51,6 @@ export class Thumb extends Publisher{
         }
     }
     setThumbNewPos(thumbLeftPos: number) {
-        console.log(thumbLeftPos);
         this.thumbElem.style.left = thumbLeftPos + 'px';
     }
 }

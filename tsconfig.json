@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strictPropertyInitialization": false,
+
   },
   "extends": "@tsconfig/recommended/tsconfig.json"
 }

@@ -26,21 +26,8 @@ export class Thumb extends Publisher{
         return (this.thumbElem);
     }
     handleThumbClicked = (event: MouseEvent) => {
-        let clickEvent: MouseEvent = event;
-        let thumbLeftPos = this.thumbElem.getBoundingClientRect().left;
-        let trackLeftPos = this.trackElem.getBoundingClientRect().left;
-        let thumbOffsetWidth = this.thumbElem.offsetWidth;
-        let trackOffsetWidth = this.trackElem.offsetWidth;
         let handleMouseMove = (event: MouseEvent) => {
-            let thumbMovedData: thumbMovedData = {
-                thumbClickedEvent: clickEvent,
-                thumbMovedEvent: event,
-                thumbLeftPos: thumbLeftPos,
-                trackLeftPos: trackLeftPos,
-                thumbOffsetWidth: thumbOffsetWidth,
-                trackOffsetWidth: trackOffsetWidth,
-            };
-            this.notify('ThumbPositionChanged', thumbMovedData);
+           this.notify('ThumbPositionChanged', event);
         }
         this.thumbElem.ondragstart = function() {
             return false;
@@ -51,6 +38,7 @@ export class Thumb extends Publisher{
         }
     }
     setThumbNewPos(thumbLeftPos: number) {
+        thumbLeftPos = thumbLeftPos - this.thumbElem.getBoundingClientRect().width;
         this.thumbElem.style.left = thumbLeftPos + 'px';
     }
 }

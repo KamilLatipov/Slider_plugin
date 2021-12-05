@@ -19,5 +19,12 @@ export class Track {
     getElement() {
         return (this.trackElem);
     }
-
+    getRelPosition(thumbPos: number) {
+        let relPosition = (thumbPos - this.trackElem.getBoundingClientRect().left) / this.trackElem.offsetWidth;
+        return relPosition;
+    }
+    getTruePosition(thumbPos: number) {
+        let truePosition: number = thumbPos * this.trackElem.offsetWidth + this.trackElem.getBoundingClientRect().left;
+        return truePosition;
+    }
 }

@@ -28,10 +28,12 @@ class View extends Publisher {
         this.track.getElement().append(this.progressBar.getElement());
     }
     notifyThumbPosChanged = (data: any) => {
-        this.notify('ThumbPositionChanged', data);
+        let relPosition = this.track.getRelPosition(data.clientX);
+        this.notify('ThumbPositionChanged', relPosition);
     }
-    setThumbNewPos(thumbLeftPos: number) {
-        this.thumb.setThumbNewPos(thumbLeftPos);
+    setThumbNewPos(relThumbPos: number) {
+        let trueThumbPos: number = this.track.getTruePosition(relThumbPos);
+        this.thumb.setThumbNewPos(trueThumbPos);
     }
 }
 
